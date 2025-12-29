@@ -10,12 +10,20 @@ export function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [settings, setSettings] = useState<any>({});
+    const [settings, setSettings] = useState<any>({
+        phone: '055 062 2197',
+        email: 'info@rsnalarabiya.com',
+        address_ar: 'حي الياسمين، الرياض',
+        address_en: 'Alyasmin District, Riyadh',
+        maps_url: 'https://maps.app.goo.gl/pKF93DTgUKrvA3x38?g_st=ic'
+    });
 
     useEffect(() => {
         const fetchSettings = async () => {
             const data = await getSiteSettings();
-            setSettings(data);
+            if (Object.keys(data).length > 0) {
+                setSettings(data);
+            }
         };
         fetchSettings();
     }, []);

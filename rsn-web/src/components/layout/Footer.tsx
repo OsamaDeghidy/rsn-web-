@@ -7,12 +7,23 @@ import { getSiteSettings } from "@/lib/supabase-service";
 
 export function Footer() {
     const { language } = useLanguage();
-    const [settings, setSettings] = useState<any>({});
+    const [settings, setSettings] = useState<any>({
+        phone: '055 062 2197',
+        email: 'info@rsnalarabiya.com',
+        address_ar: 'حي الياسمين، الرياض، المملكة العربية السعودية',
+        address_en: 'Alyasmin District, Riyadh, Kingdom of Saudi Arabia',
+        maps_url: 'https://maps.app.goo.gl/pKF93DTgUKrvA3x38?g_st=ic',
+        twitter_url: 'https://x.com/rsnalarabiya?s=21&t=pOWXrXMoBe0dbSwz_3LJaw',
+        instagram_url: 'https://www.instagram.com/rsnalarabiya?igsh=cW5lZ2h1c2E1ZGl5',
+        linkedin_url: 'https://www.linkedin.com/in/rsn-alarabiya-1b600230b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
+    });
 
     useEffect(() => {
         const fetchSettings = async () => {
             const data = await getSiteSettings();
-            setSettings(data);
+            if (Object.keys(data).length > 0) {
+                setSettings(data);
+            }
         };
         fetchSettings();
     }, []);
