@@ -2,9 +2,26 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { Shield, Mail, Phone, MapPin, Instagram, Twitter, Linkedin } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getSiteSettings } from "@/lib/supabase-service";
 
 export function Footer() {
     const { language } = useLanguage();
+    const [settings, setSettings] = useState<any>({});
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+            const data = await getSiteSettings();
+            setSettings(data);
+        };
+        fetchSettings();
+    }, []);
+
+    const socialLinks = [
+        { icon: Twitter, href: settings.twitter_url || "#", key: "twitter" },
+        { icon: Instagram, href: settings.instagram_url || "#", key: "instagram" },
+        { icon: Linkedin, href: settings.linkedin_url || "#", key: "linkedin" },
+    ];
 
     return (
         <footer className="bg-navy-950 border-t border-gold-500/10 pt-16 pb-8 relative overflow-hidden">
@@ -29,9 +46,17 @@ export function Footer() {
                                 : "The leading company in crowd management and security services in Saudi Arabia. Committed to the highest standards of safety and professionalism."}
                         </p>
                         <div className="flex space-x-4 rtl:space-x-reverse">
-                            <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors"><Twitter size={20} /></a>
-                            <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors"><Instagram size={20} /></a>
-                            <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors"><Linkedin size={20} /></a>
+                            {socialLinks.map((social) => (
+                                <a
+                                    key={social.key}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-400 hover:text-gold-500 transition-colors"
+                                >
+                                    <social.icon size={20} />
+                                </a>
+                            ))}
                         </div>
                     </div>
 
@@ -69,17 +94,28 @@ export function Footer() {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3 text-sm text-gray-400">
                                 <MapPin className="text-gold-500 shrink-0" size={18} />
-                                <span>
-                                    {language === "ar" ? "حي الياسمين، الرياض، المملكة العربية السعودية" : "Alyasmin District, Riyadh, Kingdom of Saudi Arabia"}
-                                </span>
+                                <a
+                                    href={settings.maps_url || "#"}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-gold-500 transition-colors"
+                                >
+                                    {language === "ar"
+                                        ? settings.address_ar || "حي الياسمين، الرياض، المملكة العربية السعودية"
+                                        : settings.address_en || "Alyasmin District, Riyadh, Kingdom of Saudi Arabia"}
+                                </a>
                             </li>
                             <li className="flex items-center gap-3 text-sm text-gray-400">
                                 <Phone className="text-gold-500 shrink-0" size={18} />
-                                <span dir="ltr">+966 55 062 2197</span>
+                                <a href={`tel:${settings.phone}`} className="hover:text-gold-500 transition-colors" dir="ltr">
+                                    {settings.phone || "+966 55 062 2197"}
+                                </a>
                             </li>
                             <li className="flex items-center gap-3 text-sm text-gray-400">
                                 <Mail className="text-gold-500 shrink-0" size={18} />
-                                <span>Ahmed@rsnalarabiya.com</span>
+                                <a href={`mailto:${settings.email}`} className="hover:text-gold-500 transition-colors">
+                                    {settings.email || "info@rsnalarabiya.com"}
+                                </a>
                             </li>
                         </ul>
                     </div>

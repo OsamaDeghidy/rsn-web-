@@ -21,3 +21,17 @@ pass : Aa0535408013
 #email: s01066906132@gmail.com      pass: Osama@01066906132
 
 #dp name : RNS project                pass : osama
+
+
+…or create a new repository on the command line
+echo "# rsn-web-" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M master
+git remote add origin https://github.com/OsamaDeghidy/rsn-web-.git
+git push -u origin master
+…or push an existing repository from the command line
+git remote add origin https://github.com/OsamaDeghidy/rsn-web-.git
+git branch -M main
+git push -u origin main

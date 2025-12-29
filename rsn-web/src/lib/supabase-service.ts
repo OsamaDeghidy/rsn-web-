@@ -55,3 +55,25 @@ export async function getPortfolioItem(id: string | number) {
         return null;
     }
 }
+
+/**
+ * Fetch all site settings as a key-pair object
+ */
+export async function getSiteSettings() {
+    try {
+        const { data, error } = await supabase
+            .from("site_settings")
+            .select("key, value");
+
+        if (error) throw error;
+
+        // Convert array to object { key: value }
+        return data.reduce((acc: any, curr: any) => {
+            acc[curr.key] = curr.value;
+            return acc;
+        }, {});
+    } catch (error: any) {
+        console.error("Supabase Fetch Error (site_settings):", error.message || error);
+        return {};
+    }
+}

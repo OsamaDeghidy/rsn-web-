@@ -2,14 +2,23 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react";
-import { useState } from "react";
-import { addContactSubmission } from "@/lib/supabase-service";
+import { useState, useEffect } from "react";
+import { addContactSubmission, getSiteSettings } from "@/lib/supabase-service";
 
 export function Contact() {
     const { language } = useLanguage();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [settings, setSettings] = useState<any>({});
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+            const data = await getSiteSettings();
+            setSettings(data);
+        };
+        fetchSettings();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -59,12 +68,16 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold text-lg mb-2">{language === "ar" ? "موقعنا" : "Our Location"}</h4>
-                                    <p className="text-gray-400">
-                                        {language === "ar" ? "حي الياسمين، الرياض" : "Alyasmin District, Riyadh"}
-                                    </p>
-                                    <p className="text-gray-400">
-                                        {language === "ar" ? "المملكة العربية السعودية" : "Kingdom of Saudi Arabia"}
-                                    </p>
+                                    <a
+                                        href={settings.maps_url || "#"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-400 hover:text-gold-500 transition-colors"
+                                    >
+                                        {language === "ar"
+                                            ? settings.address_ar || "حي الياسمين، الرياض"
+                                            : settings.address_en || "Alyasmin District, Riyadh"}
+                                    </a>
                                 </div>
                             </div>
 
@@ -74,7 +87,9 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold text-lg mb-2">{language === "ar" ? "اتصل بنا" : "Call Us"}</h4>
-                                    <p className="text-gray-400" dir="ltr">+966 55 062 2197</p>
+                                    <a href={`tel:${settings.phone}`} className="text-gray-400 hover:text-gold-500 transition-colors" dir="ltr">
+                                        {settings.phone || "+966 55 062 2197"}
+                                    </a>
                                 </div>
                             </div>
 
@@ -84,7 +99,9 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold text-lg mb-2">{language === "ar" ? "البريد الإلكتروني" : "Email Us"}</h4>
-                                    <p className="text-gray-400">Ahmed@rsnalarabiya.com</p>
+                                    <a href={`mailto:${settings.email}`} className="text-gray-400 hover:text-gold-500 transition-colors">
+                                        {settings.email || "info@rsnalarabiya.com"}
+                                    </a>
                                 </div>
                             </div>
                         </div>
