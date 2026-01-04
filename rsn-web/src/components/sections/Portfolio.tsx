@@ -140,6 +140,24 @@ export function Portfolio() {
                 </motion.div>
             </div>
 
+            {/* View More Button */}
+            <div className="flex justify-center mb-24">
+                <Link
+                    href="/portfolio"
+                    className="group relative inline-flex items-center gap-3 bg-gold-500 text-navy-950 px-8 py-4 rounded-full font-bold text-lg hover:bg-gold-400 transition-all duration-300 shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50 hover:scale-105"
+                >
+                    <span>{language === "ar" ? "عرض جميع الأعمال" : "View All Projects"}</span>
+                    <svg
+                        className={`w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 ${language === "ar" ? "rotate-180 group-hover:-translate-x-1" : ""}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </Link>
+            </div>
+
             {/* Clients Slider */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
