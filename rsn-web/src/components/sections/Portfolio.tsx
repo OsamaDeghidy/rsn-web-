@@ -4,7 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { getTableData } from "@/lib/supabase-service";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 function ClientLogo({ client }: { client: any }) {
@@ -141,7 +141,8 @@ export function Portfolio() {
             </div>
 
             {/* View More Button */}
-            <div className="flex justify-center mb-24">
+            {/* Action Buttons */}
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-24">
                 <Link
                     href="/portfolio"
                     className="group relative inline-flex items-center gap-3 bg-gold-500 text-navy-950 px-8 py-4 rounded-full font-bold text-lg hover:bg-gold-400 transition-all duration-300 shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50 hover:scale-105"
@@ -156,14 +157,43 @@ export function Portfolio() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                 </Link>
+
+                <a
+                    href="/rsn-company-profile.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative inline-flex items-center gap-3 bg-navy-800 text-white border border-gold-500/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-navy-700 hover:border-gold-500 transition-all duration-300 shadow-lg hover:shadow-gold-500/20 hover:scale-105"
+                >
+                    <span>{language === "ar" ? "تحميل الملف التعريفي" : "Download Profile"}</span>
+                    <svg
+                        className="w-5 h-5 transition-transform duration-300 group-hover:translate-y-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                </a>
             </div>
 
             {/* Clients Slider */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-12">
-                    <h3 className="text-gray-500 font-bold uppercase tracking-widest text-sm">
-                        {language === "ar" ? "نفتخر بثقة كبار العملاء" : "PROUD TO BE TRUSTED BY"}
-                    </h3>
+                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <div>
+                        <h3 className="text-gold-500 font-bold uppercase tracking-widest text-sm mb-2">
+                            {language === "ar" ? "عملائنا" : "OUR CLIENTS"}
+                        </h3>
+                        <h2 className="text-3xl font-heading font-bold text-white">
+                            {language === "ar" ? "نفتخر بثقة كبار العملاء" : "Proud to be Trusted by"}
+                        </h2>
+                    </div>
+                    <Link
+                        href="/clients"
+                        className="text-gray-400 hover:text-gold-500 transition-colors flex items-center gap-2 text-sm font-bold uppercase tracking-wider"
+                    >
+                        {language === "ar" ? "عرض جميع العملاء" : "View All Clients"}
+                        <ArrowRight size={16} className={language === "ar" ? "rotate-180" : ""} />
+                    </Link>
                 </div>
 
                 <div className="flex overflow-hidden relative group">

@@ -101,6 +101,7 @@ export function Services() {
                                     description={language === "ar" ? service.description_ar || service.description : service.description_en || service.description}
                                     icon={service.icon}
                                     index={index}
+                                    id={service.id || index + 1}
                                 />
                             </div>
                         ))}

@@ -44,8 +44,12 @@ export function Footer() {
                     {/* Company Info */}
                     <div className="col-span-1 md:col-span-1">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse mb-6">
-                            <div className="bg-gold-500 text-navy-950 p-1.5 rounded-lg">
-                                <Shield size={24} strokeWidth={2.5} />
+                            <div className="relative h-24 w-auto">
+                                <img
+                                    src="/rsn-logo.jpg"
+                                    alt="RSN Alarabiya Logo"
+                                    className="h-full w-auto object-contain"
+                                />
                             </div>
                             <span className="text-2xl font-heading font-bold text-white">
                                 RSN <span className="text-gold-500">Alarabiya</span>

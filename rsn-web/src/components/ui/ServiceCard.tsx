@@ -10,9 +10,12 @@ interface ServiceCardProps {
     description: string;
     icon: LucideIcon;
     index: number;
+    id?: number | string;
 }
 
-export function ServiceCard({ title, description, icon: Icon, index }: ServiceCardProps) {
+import Link from "next/link";
+
+export function ServiceCard({ title, description, icon: Icon, index, id }: ServiceCardProps) {
     const { dir } = useLanguage();
     const ref = useRef<HTMLDivElement>(null);
 
@@ -91,13 +94,14 @@ export function ServiceCard({ title, description, icon: Icon, index }: ServiceCa
                     {description}
                 </p>
 
-                <div
-                    className="flex items-center text-gold-500 text-xs font-bold uppercase tracking-wider mt-auto"
+                <Link
+                    href={`/services/${id || index + 1}`}
+                    className="flex items-center text-gold-500 text-xs font-bold uppercase tracking-wider mt-auto hover:text-white transition-colors"
                     style={{ transform: "translateZ(50px)" }}
                 >
                     <span>Read More</span>
                     <ArrowRight size={14} className={`mx-2 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-                </div>
+                </Link>
             </div>
         </motion.div>
     );

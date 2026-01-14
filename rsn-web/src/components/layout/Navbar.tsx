@@ -30,8 +30,12 @@ export function Navbar() {
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse group">
-                        <div className="bg-gold-500 text-navy-950 p-1.5 rounded-lg group-hover:bg-gold-400 transition-colors">
-                            <Shield size={24} strokeWidth={2.5} />
+                        <div className="relative h-24 w-auto">
+                            <img
+                                src="/rsn-logo.jpg"
+                                alt="RSN Alarabiya Logo"
+                                className="h-full w-auto object-contain"
+                            />
                         </div>
                         <span className="text-2xl font-heading font-bold text-white group-hover:text-gold-500 transition-colors">
                             RSN <span className="text-gold-500">Alarabiya</span>
