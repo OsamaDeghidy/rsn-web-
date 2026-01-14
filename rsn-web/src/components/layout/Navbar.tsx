@@ -32,7 +32,7 @@ export function Navbar() {
                     <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse group">
                         <div className="relative h-24 w-auto">
                             <img
-                                src="/rsn-logo.jpg"
+                                src="/RSN%20Logo.jpg"
                                 alt="RSN Alarabiya Logo"
                                 className="h-full w-auto object-contain"
                             />

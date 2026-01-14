@@ -159,7 +159,7 @@ export function Portfolio() {
                 </Link>
 
                 <a
-                    href="/rsn-company-profile.pdf"
+                    href="/RSN%20company%20profil.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative inline-flex items-center gap-3 bg-navy-800 text-white border border-gold-500/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-navy-700 hover:border-gold-500 transition-all duration-300 shadow-lg hover:shadow-gold-500/20 hover:scale-105"
