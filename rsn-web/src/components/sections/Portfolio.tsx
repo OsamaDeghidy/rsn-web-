@@ -43,12 +43,60 @@ export function Portfolio() {
                 setEvents(eventsData);
             } else {
                 setEvents([
-                    { id: 1, name: "LIV Golf", category: "Sports" },
-                    { id: 2, name: "Riyadh Jazz Fest", category: "Music" },
-                    { id: 3, name: "Formula 1", category: "Sports" },
-                    { id: 4, name: "MDLBEAST", category: "Entertainment" },
-                    { id: 5, name: "Saudi Cup", category: "Equestrian" },
-                    { id: 6, name: "Red Sea Film Fest", category: "Culture" },
+                    {
+                        id: 1,
+                        name: "LIV Golf Riyadh 2025",
+                        category: "Sports",
+                        description: "Global golf tournament organization and crowd management.",
+                        name_ar: "ليف جولف الرياض 2025",
+                        category_ar: "فعاليات رياضية",
+                        description_ar: "تنظيم بطولة الجولف العالمية وإدارة الحشود."
+                    },
+                    {
+                        id: 2,
+                        name: "AlUla SC Fan Zones",
+                        category: "Sports",
+                        description: "Fan zone activation and management for AlUla Sports Club.",
+                        name_ar: "مناطق المشجعين لنادي العلا",
+                        category_ar: "فعاليات رياضية",
+                        description_ar: "تفعيل وإدارة مناطق المشجعين لنادي العلا."
+                    },
+                    {
+                        id: 3,
+                        name: "MDLBEAST",
+                        category: "Entertainment",
+                        description: "Crowd management for major music festivals.",
+                        name_ar: "مدل بيست",
+                        category_ar: "ترفيه وموسيقى",
+                        description_ar: "إدارة الحشود للمهرجانات الموسيقية الكبرى."
+                    },
+                    {
+                        id: 4,
+                        name: "Saudi Cup",
+                        category: "Equestrian",
+                        description: "Premium security and protocol services for the world's richest race.",
+                        name_ar: "كأس السعودية",
+                        category_ar: "فروسية",
+                        description_ar: "خدمات الأمن والبروتوكول لأغلى سباق في العالم."
+                    },
+                    {
+                        id: 5,
+                        name: "Red Sea Film Fest",
+                        category: "Culture",
+                        description: "Red carpet security and crowd control.",
+                        name_ar: "مهرجان البحر الأحمر السينمائي",
+                        category_ar: "ثقافة وفنون",
+                        description_ar: "أمن السجادة الحمراء وإدارة الحشود."
+                    },
+                    {
+                        id: 6,
+                        name: "Cityscape Global",
+                        category: "Exhibition",
+                        description: "Managing massive crowds for the global real estate event.",
+                        name_ar: "سيتي سكيب الرقمي",
+                        category_ar: "معارض",
+                        description_ar: "إدارة الحشود الضخمة للمعرض العقاري العالمي."
+                    },
                 ]);
             }
 
@@ -56,8 +104,21 @@ export function Portfolio() {
                 setClients(clientsData);
             } else {
                 setClients([
-                    { name: "Ministry of Sports" }, { name: "Aramco" }, { name: "PIF" }, { name: "Riyadh Bank" }, { name: "Newcastle United" },
-                    { name: "Ministry of Culture" }, { name: "GEA" }, { name: "Royal Commission" }, { name: "NEOM" }, { name: "Red Sea Global" }
+                    { name: "Ministry of Sports", logo_url: null },
+                    { name: "Ministry of Culture", logo_url: null },
+                    { name: "Ministry of Tourism", logo_url: null },
+                    { name: "Ministry of Justice", logo_url: null },
+                    { name: "Ministry of Health", logo_url: null },
+                    { name: "PIF", logo_url: null },
+                    { name: "Aramco", logo_url: null },
+                    { name: "Riyadh Bank", logo_url: null },
+                    { name: "NEOM", logo_url: null },
+                    { name: "Red Sea Global", logo_url: null },
+                    { name: "Royal Commission for Riyadh City", logo_url: null },
+                    { name: "KAEC", logo_url: null },
+                    { name: "Qiddiya", logo_url: null },
+                    { name: "GEA", logo_url: null },
+                    { name: "AlUla SC", logo_url: null }
                 ]);
             }
             setIsLoading(false);
@@ -159,7 +220,7 @@ export function Portfolio() {
                 </Link>
 
                 <a
-                    href="/RSN%20company%20profil.pdf"
+                    href="/rsn-company-profile.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative inline-flex items-center gap-3 bg-navy-800 text-white border border-gold-500/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-navy-700 hover:border-gold-500 transition-all duration-300 shadow-lg hover:shadow-gold-500/20 hover:scale-105"

@@ -24,15 +24,15 @@ export function About() {
     }, []);
 
     const content = {
-        storyTitle: language === "ar" ? aboutData?.story_title_ar || "قصتنا" : aboutData?.story_title_en || "OUR STORY",
-        title: language === "ar" ? aboutData?.title_ar || "حكاية تبدأ من بين الصفوف" : aboutData?.title_en || "A Story Starting from the Rows",
+        storyTitle: language === "ar" ? aboutData?.story_title_ar || "نبذة عن الشركة" : aboutData?.story_title_en || "ABOUT US",
+        title: language === "ar" ? aboutData?.title_ar || "رسن العربية" : aboutData?.title_en || "RSN Alarabiya",
         description: language === "ar"
-            ? aboutData?.description_ar || "تأسست رسن العربية عام ٢٠١٨ لتواكب النمو المتسارع في صناعة الفعاليات، ليس فقط كمنظم، بل كشريك استراتيجي في إدارة وتنسيق تجارب الحشود."
-            : aboutData?.description_en || "RSN Alarabiya was founded in 2018 to keep pace with the accelerated growth in the events industry, not just as an organizer, but as a strategic partner in crowd management.",
-        ceoMessageTitle: language === "ar" ? aboutData?.ceo_msg_title_ar || "رسالة من الرئيس التنفيذي" : aboutData?.ceo_msg_title_en || "Message from the CEO",
+            ? aboutData?.description_ar || "شركة سعودية تأسست عام 2018، متخصصة في إدارة الحشود، العمليات التشغيلية للفعاليات، وخدمات التنفيذ الشاملة من البداية للنهاية. قدمت الشركة حلولاً عالية الجودة وممتثلة للمعايير للجهات الحكومية والمنظمات الرائدة في المملكة. تعتمد الشركة على فريق مدرب ومحترف ميدانياً لضمان فعاليات آمنة وسلسة وذات كفاءة عالية."
+            : aboutData?.description_en || "A Saudi company established in 2018, specializing in crowd management, event operations, and end-to-end execution services. The company has delivered high-quality, compliant solutions to government entities and leading organizations in the Kingdom, relying on a trained and professional field team to ensure safe, seamless, and highly efficient events.",
+        ceoMessageTitle: language === "ar" ? aboutData?.ceo_msg_title_ar || "كلمة الرئيس التنفيذي" : aboutData?.ceo_msg_title_en || "Message from the CEO",
         ceoMessage: language === "ar"
-            ? aboutData?.ceo_msg_ar || "\"يسرني أن أرحب بكم في شركة رسن العربية.. نحن نحرص دائماً على استقطاب الكفاءات السعودية المؤهلة ذات الخبرة الواسعة في إدارة الحشود وتنظيم الفعاليات.. لضمان تقديم خدماتنا بأعلى درجات الجودة والمهنية.\""
-            : aboutData?.ceo_msg_en || "\"I am pleased to welcome you to RSN Alarabiya. We are always keen to attract qualified Saudi competencies with extensive experience in crowd management and event organization, ensuring our services are delivered with the highest quality and professionalism.\"",
+            ? aboutData?.ceo_msg_ar || "\"تؤكد الشركة أن قوتها تكمن في العمل مع كوادر سعودية مؤهلة، وتقديم المشاريع بتميز ودقة واحترافية.\""
+            : aboutData?.ceo_msg_en || "\"The company confirms that its strength lies in working with qualified Saudi cadres and delivering projects with excellence, precision, and professionalism.\"",
         ceoName: language === "ar" ? aboutData?.ceo_name_ar || "أحمد مرعي القرني" : aboutData?.ceo_name_en || "Ahmed Marai Al-Garni",
         ceoTitle: language === "ar" ? aboutData?.ceo_title_ar || "الرئيس التنفيذي" : aboutData?.ceo_title_en || "CEO",
     };
