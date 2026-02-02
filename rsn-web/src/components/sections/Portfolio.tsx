@@ -238,7 +238,7 @@ export function Portfolio() {
             </div>
 
             {/* Clients Slider */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="client" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                     <div>
                         <h3 className="text-gold-500 font-bold uppercase tracking-widest text-sm mb-2">

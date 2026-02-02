@@ -16,12 +16,12 @@ export function Navbar() {
     };
 
     const menuItems = [
-        { name: language === "ar" ? "الرئيسية" : "Home", href: "#hero" },
-        { name: language === "ar" ? "عن الشركة" : "About", href: "#about" },
-        { name: language === "ar" ? "خدماتنا" : "Services", href: "#services" },
-        { name: language === "ar" ? "المعرض" : "Portfolio", href: "#portfolio" },
-        { name: language === "ar" ? "العملاء" : "Clients", href: "#clients" },
-        { name: language === "ar" ? "تواصل معنا" : "Contact", href: "#contact" },
+        { name: language === "ar" ? "الرئيسية" : "Home", href: "/#hero" },
+        { name: language === "ar" ? "عن الشركة" : "About", href: "/#about" },
+        { name: language === "ar" ? "خدماتنا" : "Services", href: "/#services" },
+        { name: language === "ar" ? "المعرض" : "Portfolio", href: "/#portfolio" },
+        { name: language === "ar" ? "العملاء" : "Clients", href: "/#client" },
+        { name: language === "ar" ? "تواصل معنا" : "Contact", href: "/#contact" },
     ];
 
     return (
@@ -32,7 +32,7 @@ export function Navbar() {
                     <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse group">
                         <div className="relative h-24 w-auto">
                             <img
-                                src="/rsn-logo.jpg"
+                                src="/rsn-logo.png"
                                 alt="RSN Alarabiya Logo"
                                 className="h-full w-auto object-contain"
                             />
