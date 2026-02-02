@@ -44,9 +44,9 @@ export function Footer() {
                     {/* Company Info */}
                     <div className="col-span-1 md:col-span-1">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse mb-6">
-                            <div className="relative h-24 w-auto">
+                            <div className="relative h-12 w-auto">
                                 <img
-                                    src="/rsn-logo.jpg"
+                                    src="/rsn-logo.png"
                                     alt="RSN Alarabiya Logo"
                                     className="h-full w-auto object-contain"
                                 />
