@@ -200,9 +200,12 @@ export default function PortfolioDetailPage() {
                                 </li>
                             </ul>
 
-                            <button className="w-full mt-12 bg-gold-500 text-navy-950 font-bold py-4 rounded-xl hover:bg-gold-400 transition-colors">
+                            <Link 
+                                href="/#contact"
+                                className="block w-full mt-12 bg-gold-500 text-navy-950 font-bold py-4 rounded-xl hover:bg-gold-400 transition-colors text-center"
+                            >
                                 {language === "ar" ? "طلب خدمة مشابهة" : "Request Similar Service"}
-                            </button>
+                            </Link>
                         </motion.div>
                     </aside>
                 </div>

@@ -114,6 +114,15 @@ export default function ServiceDetailPage() {
                                 }
                             </div>
                         </div>
+                        <div className="mt-12">
+                            <Link 
+                                href="/#contact"
+                                className="inline-flex items-center gap-3 bg-gold-500 text-navy-950 px-8 py-4 rounded-full font-bold text-lg hover:bg-gold-400 transition-all duration-300 shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50 hover:scale-105"
+                            >
+                                <span>{language === "ar" ? "اطلب هذه الخدمة الآن" : "Order this service now"}</span>
+                                <ArrowRight size={20} className={language === "ar" ? "rotate-180" : ""} />
+                            </Link>
+                        </div>
                     </motion.div>
 
                     {/* Image/Visual */}

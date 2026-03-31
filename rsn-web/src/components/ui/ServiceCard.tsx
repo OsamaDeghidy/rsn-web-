@@ -99,8 +99,8 @@ export function ServiceCard({ title, description, icon: Icon, index, id }: Servi
                     className="flex items-center text-gold-500 text-xs font-bold uppercase tracking-wider mt-auto hover:text-white transition-colors"
                     style={{ transform: "translateZ(50px)" }}
                 >
-                    <span>Read More</span>
-                    <ArrowRight size={14} className={`mx-2 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+                    <span>{useLanguage().language === "ar" ? "اقرأ المزيد" : "Read More"}</span>
+                    <ArrowRight size={14} className={dir === 'rtl' ? 'rotate-180' : ''} />
                 </Link>
             </div>
         </motion.div>
