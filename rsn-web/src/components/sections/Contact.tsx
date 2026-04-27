@@ -28,6 +28,23 @@ export function Contact() {
         fetchSettings();
     }, []);
 
+    // Fix for cross-page hash navigation scroll issues due to dynamic content loading
+    useEffect(() => {
+        if (typeof window !== "undefined" && window.location.hash === "#contact") {
+            const scrollToContact = () => {
+                const element = document.getElementById("contact");
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                }
+            };
+            
+            // Try scrolling at multiple intervals to ensure it works after dynamic sections (Services/Portfolio) load
+            setTimeout(scrollToContact, 100);
+            setTimeout(scrollToContact, 500);
+            setTimeout(scrollToContact, 1500);
+        }
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);

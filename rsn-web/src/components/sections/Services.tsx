@@ -20,7 +20,7 @@ export function Services() {
             const data = await getTableData("services");
             if (data && data.length > 0) {
                 // Map the icon string from Supabase to the Lucide icon component
-                const mappedData = data.map(item => ({
+                const mappedData = data.map((item: any) => ({
                     ...item,
                     icon: ICON_MAP[item.icon as string] || Users
                 }));

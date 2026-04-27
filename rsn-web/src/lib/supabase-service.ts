@@ -23,13 +23,26 @@ export async function addContactSubmission(data: {
 }
 
 /**
- * Fetch data from a Supabase table
+ * Helper to wrap a promise with a timeout
+ */
+const withTimeout = <T>(promise: Promise<T>, timeoutMs: number): Promise<T> => {
+    return Promise.race([
+        promise,
+        new Promise<T>((_, reject) =>
+            setTimeout(() => reject(new Error('Fetch timeout')), timeoutMs)
+        )
+    ]);
+};
+
+/**
+ * Fetch data from a Supabase table with timeout
  */
 export async function getTableData(tableName: string) {
     try {
-        const { data, error } = await supabase
-            .from(tableName)
-            .select("*");
+        const { data, error } = await withTimeout<any>(
+            supabase.from(tableName).select("*") as unknown as Promise<any>,
+            8000 // 8 seconds timeout
+        );
 
         if (error) throw error;
         return data || [];

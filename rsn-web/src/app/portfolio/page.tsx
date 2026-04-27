@@ -27,7 +27,7 @@ export default function PortfolioGalleryPage() {
     }, []);
 
     const categories = [
-        { key: "all", label_en: "All Projects", label_ar: "جميع الأعمال" },
+        { key: "all", label_en: "All Projects", label_ar: "الأعمال السابقة" },
         { key: "Sports", label_en: "Sports", label_ar: "رياضة" },
         { key: "Music", label_en: "Music", label_ar: "موسيقى" },
         { key: "Entertainment", label_en: "Entertainment", label_ar: "ترفيه" },
@@ -94,11 +94,6 @@ export default function PortfolioGalleryPage() {
                                 }`}
                         >
                             {language === "ar" ? category.label_ar : category.label_en}
-                            {activeCategory === category.key && (
-                                <span className="ml-2">
-                                    ({category.key === "all" ? projects.length : projects.filter(p => p.category_en === category.key).length})
-                                </span>
-                            )}
                         </button>
                     ))}
                 </motion.div>

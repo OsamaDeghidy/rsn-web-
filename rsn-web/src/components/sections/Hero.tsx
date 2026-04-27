@@ -1,7 +1,16 @@
 "use client";
+import { Suspense } from "react";
 
-import { Canvas } from "@react-three/fiber";
-import { HeroScene } from "@/components/3d/HeroScene";
+import dynamic from "next/dynamic";
+
+const Canvas = dynamic(() => import("@react-three/fiber").then((mod) => mod.Canvas), {
+    ssr: false,
+    loading: () => <div className="absolute inset-0 bg-navy-950" />
+});
+
+const HeroScene = dynamic(() => import("@/components/3d/HeroScene").then((mod) => mod.HeroScene), {
+    ssr: false
+});
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -35,9 +44,11 @@ export function Hero() {
         <section id="hero" className="relative h-screen w-full overflow-hidden bg-navy-950">
             {/* 3D Background */}
             <div className="absolute inset-0 z-0">
-                <Canvas camera={{ position: [0, 0, 2] }}>
-                    <HeroScene />
-                </Canvas>
+                <Suspense fallback={<div className="absolute inset-0 bg-navy-950" />}>
+                    <Canvas camera={{ position: [0, 0, 2] }}>
+                        <HeroScene />
+                    </Canvas>
+                </Suspense>
             </div>
 
             {/* Content Overlay */}

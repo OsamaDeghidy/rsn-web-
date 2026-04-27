@@ -4,17 +4,20 @@ import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { getTableData } from "@/lib/supabase-service";
-import { Loader2, ArrowRight } from "lucide-react";
+import { Loader2, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 function ClientLogo({ client }: { client: any }) {
     const [hasError, setHasError] = useState(false);
 
     if (client.logo_url && !hasError) {
         return (
-            <img
+            <Image
                 src={client.logo_url}
                 alt={client.name}
+                width={180}
+                height={80}
                 onError={() => setHasError(true)}
                 className="h-16 md:h-20 w-auto object-contain max-w-[180px]"
             />
@@ -22,7 +25,7 @@ function ClientLogo({ client }: { client: any }) {
     }
 
     return (
-        <span className="text-2xl md:text-3xl font-heading font-bold text-navy-800">
+        <span className="text-xl md:text-2xl font-heading font-bold text-gold-500/40 hover:text-gold-500 transition-colors uppercase tracking-widest px-4">
             {client.name}
         </span>
     );
@@ -33,11 +36,15 @@ export function Portfolio() {
     const [events, setEvents] = useState<any[]>([]);
     const [clients, setClients] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [eventIndex, setEventIndex] = useState(0);
+    const [clientIndex, setClientIndex] = useState(0);
 
     useEffect(() => {
         const fetchPortfolio = async () => {
-            const eventsData = await getTableData("portfolio");
-            const clientsData = await getTableData("clients");
+            const [eventsData, clientsData] = await Promise.all([
+                getTableData("portfolio"),
+                getTableData("clients")
+            ]);
 
             if (eventsData && eventsData.length > 0) {
                 setEvents(eventsData);
@@ -150,55 +157,76 @@ export function Portfolio() {
                 </div>
             </div>
 
-            {/* Events Slider */}
-            <div className="flex space-x-8 overflow-hidden group mb-24">
-                <motion.div
-                    animate={{
-                        x: [0, -100 * events.length],
-                    }}
-                    transition={{
-                        x: {
-                            repeat: Infinity,
-                            repeatType: "loop",
-                            duration: 30,
-                            ease: "linear",
-                        },
-                    }}
-                    className="flex space-x-8 whitespace-nowrap"
-                >
-                    {[...events, ...events].map((event, index) => (
-                        <Link
-                            key={index}
-                            href={`/portfolio/${event.id}`}
-                            className="relative w-[400px] h-[500px] rounded-2xl overflow-hidden group shrink-0 block"
+            {/* Events Slider with Controls */}
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+                <div className="flex items-center justify-between gap-8">
+                    <button 
+                        onClick={() => setEventIndex(prev => Math.max(0, prev - 1))}
+                        disabled={eventIndex === 0}
+                        className="w-12 h-12 rounded-full border border-gold-500/30 flex items-center justify-center text-gold-500 hover:bg-gold-500 hover:text-navy-950 transition-all disabled:opacity-20"
+                    >
+                        <ChevronRight size={24} className={language === "ar" ? "" : "rotate-180"} />
+                    </button>
+
+                    <div className="flex-1 overflow-hidden">
+                        <motion.div
+                            animate={{ x: language === "ar" ? `${eventIndex * 100}%` : `-${eventIndex * 100}%` }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            className="flex"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/50 to-transparent z-10" />
+                            {events.map((event, index) => (
+                                <div key={index} className="w-full shrink-0 px-4">
+                                    <Link
+                                        href={`/portfolio/${event.id}`}
+                                        className="relative block aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden group"
+                                    >
+                                        <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/20 to-transparent z-10" />
+                                        {event.image_url ? (
+                                            <Image
+                                                src={event.image_url}
+                                                alt={language === "ar" ? event.name_ar || event.name : event.name_en || event.name}
+                                                fill
+                                                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 bg-navy-900" />
+                                        )}
+                                        <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end z-20">
+                                            <span className="text-gold-500 font-bold uppercase tracking-widest text-sm mb-2 block">
+                                                {language === "ar" ? event.category_ar || event.category : event.category_en || event.category}
+                                            </span>
+                                            <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 group-hover:text-gold-500 transition-colors">
+                                                {language === "ar" ? event.name_ar || event.name : event.name_en || event.name}
+                                            </h3>
+                                            <p className="text-gray-300 max-w-2xl line-clamp-2">
+                                                {language === "ar" ? event.description_ar : event.description_en}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                        </motion.div>
+                    </div>
 
-                            {/* Background Image from Supabase or Placeholder */}
-                            {event.image_url ? (
-                                <img
-                                    src={event.image_url}
-                                    alt={language === "ar" ? event.name_ar || event.name : event.name_en || event.name}
-                                    className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform duration-700"
-                                />
-                            ) : (
-                                <div className="absolute inset-0 bg-navy-800 opacity-50 group-hover:scale-110 transition-transform duration-700" />
-                            )}
-
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20">
-                                <span className="text-gold-500 text-xs font-bold uppercase tracking-wider mb-2 block">
-                                    {language === "ar" ? event.category_ar || event.category : event.category_en || event.category}
-                                </span>
-                                <h3 className="text-2xl font-bold text-white group-hover:text-gold-500 transition-colors mb-2">
-                                    {language === "ar" ? event.name_ar || event.name : event.name_en || event.name}
-                                </h3>
-                                <p className="text-gray-400 text-sm line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 whitespace-normal">
-                                    {language === "ar" ? event.description_ar : event.description_en}
-                                </p>
-                            </div>
-                        </Link>
+                    <button 
+                        onClick={() => setEventIndex(prev => Math.min(events.length - 1, prev + 1))}
+                        disabled={eventIndex === events.length - 1}
+                        className="w-12 h-12 rounded-full border border-gold-500/30 flex items-center justify-center text-gold-500 hover:bg-gold-500 hover:text-navy-950 transition-all disabled:opacity-20"
+                    >
+                        <ChevronLeft size={24} className={language === "ar" ? "" : "rotate-180"} />
+                    </button>
+                </div>
+                
+                {/* Dots indicator */}
+                <div className="flex justify-center gap-2 mt-8">
+                    {events.map((_, i) => (
+                        <button 
+                            key={i}
+                            onClick={() => setEventIndex(i)}
+                            className={`h-1.5 rounded-full transition-all ${eventIndex === i ? "w-8 bg-gold-500" : "w-2 bg-gold-500/20"}`}
+                        />
                     ))}
-                </motion.div>
+                </div>
             </div>
 
             {/* View More Button */}
@@ -220,7 +248,7 @@ export function Portfolio() {
                 </Link>
 
                 <a
-                    href="/rsn-company-profile.pdf"
+                    href="/Copy%20of%20RSN%20COMPANY%20PROFILE%202026.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative inline-flex items-center gap-3 bg-navy-800 text-white border border-gold-500/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-navy-700 hover:border-gold-500 transition-all duration-300 shadow-lg hover:shadow-gold-500/20 hover:scale-105"
@@ -257,29 +285,33 @@ export function Portfolio() {
                     </Link>
                 </div>
 
-                <div className="flex overflow-hidden relative group">
-                    <motion.div
-                        animate={{
-                            x: ["0%", "-50%"],
-                        }}
-                        transition={{
-                            duration: 40,
-                            ease: "linear",
-                            repeat: Infinity,
-                            repeatType: "loop",
-                        }}
-                        className="flex items-center gap-24 whitespace-nowrap py-10"
-                    >
-                        {[...clients, ...clients].map((client: any, index) => (
-                            <div key={index} className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-500 opacity-60 hover:opacity-100">
-                                <ClientLogo client={client} />
-                            </div>
-                        ))}
-                    </motion.div>
+                <div className="relative">
+                    <div className="overflow-hidden px-12">
+                        <motion.div
+                            animate={{ x: language === "ar" ? `${clientIndex * (100 / 3)}%` : `-${clientIndex * (100 / 3)}%` }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            className="flex items-center"
+                        >
+                            {clients.map((client: any, index) => (
+                                <div key={index} className="w-1/2 md:w-1/3 lg:w-1/5 shrink-0 px-8 flex justify-center grayscale hover:grayscale-0 transition-all duration-500 opacity-60 hover:opacity-100">
+                                    <ClientLogo client={client} />
+                                </div>
+                            ))}
+                        </motion.div>
+                    </div>
 
-                    {/* Gradient Overlays for smooth fading */}
-                    <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-navy-950 to-transparent z-10" />
-                    <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-navy-950 to-transparent z-10" />
+                    <button 
+                        onClick={() => setClientIndex(prev => Math.max(0, prev - 1))}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-navy-900 border border-gold-500/20 flex items-center justify-center text-gold-500 z-20"
+                    >
+                        <ChevronRight size={20} className={language === "ar" ? "" : "rotate-180"} />
+                    </button>
+                    <button 
+                        onClick={() => setClientIndex(prev => Math.min(clients.length - 3, prev + 1))}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-navy-900 border border-gold-500/20 flex items-center justify-center text-gold-500 z-20"
+                    >
+                        <ChevronLeft size={20} className={language === "ar" ? "" : "rotate-180"} />
+                    </button>
                 </div>
             </div>
         </section>
