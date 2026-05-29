@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
@@ -160,7 +161,7 @@ export function Portfolio() {
             {/* Events Slider with Controls */}
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
                 <div className="flex items-center justify-between gap-8">
-                    <button 
+                    <button
                         onClick={() => setEventIndex(prev => Math.max(0, prev - 1))}
                         disabled={eventIndex === 0}
                         className="w-12 h-12 rounded-full border border-gold-500/30 flex items-center justify-center text-gold-500 hover:bg-gold-500 hover:text-navy-950 transition-all disabled:opacity-20"
@@ -208,7 +209,7 @@ export function Portfolio() {
                         </motion.div>
                     </div>
 
-                    <button 
+                    <button
                         onClick={() => setEventIndex(prev => Math.min(events.length - 1, prev + 1))}
                         disabled={eventIndex === events.length - 1}
                         className="w-12 h-12 rounded-full border border-gold-500/30 flex items-center justify-center text-gold-500 hover:bg-gold-500 hover:text-navy-950 transition-all disabled:opacity-20"
@@ -216,11 +217,11 @@ export function Portfolio() {
                         <ChevronLeft size={24} className={language === "ar" ? "" : "rotate-180"} />
                     </button>
                 </div>
-                
+
                 {/* Dots indicator */}
                 <div className="flex justify-center gap-2 mt-8">
                     {events.map((_, i) => (
-                        <button 
+                        <button
                             key={i}
                             onClick={() => setEventIndex(i)}
                             className={`h-1.5 rounded-full transition-all ${eventIndex === i ? "w-8 bg-gold-500" : "w-2 bg-gold-500/20"}`}
@@ -236,7 +237,7 @@ export function Portfolio() {
                     href="/portfolio"
                     className="group relative inline-flex items-center gap-3 bg-gold-500 text-navy-950 px-8 py-4 rounded-full font-bold text-lg hover:bg-gold-400 transition-all duration-300 shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50 hover:scale-105"
                 >
-                    <span>{language === "ar" ? "عرض جميع الأعمال" : "View All Projects"}</span>
+                    <span>{language === "ar" ? "عرض بعض الأعمال" : "View All Projects"}</span>
                     <svg
                         className={`w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 ${language === "ar" ? "rotate-180 group-hover:-translate-x-1" : ""}`}
                         fill="none"
@@ -300,13 +301,13 @@ export function Portfolio() {
                         </motion.div>
                     </div>
 
-                    <button 
+                    <button
                         onClick={() => setClientIndex(prev => Math.max(0, prev - 1))}
                         className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-navy-900 border border-gold-500/20 flex items-center justify-center text-gold-500 z-20"
                     >
                         <ChevronRight size={20} className={language === "ar" ? "" : "rotate-180"} />
                     </button>
-                    <button 
+                    <button
                         onClick={() => setClientIndex(prev => Math.min(clients.length - 3, prev + 1))}
                         className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-navy-900 border border-gold-500/20 flex items-center justify-center text-gold-500 z-20"
                     >

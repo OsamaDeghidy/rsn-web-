@@ -1,5 +1,6 @@
--- Reset Tables (Optional: Uncomment if you want to wipe everything and start over)
-DROP TABLE IF EXISTS submissions, services, portfolio, clients, hero, about, coverage CASCADE;
+-- WARNING: Running the DROP TABLE statement below will WIPE OUT all your live database tables and custom data!
+-- Only uncomment and run it if you explicitly want to reset everything.
+-- DROP TABLE IF EXISTS submissions, services, portfolio, clients, hero, about, coverage, site_settings, equipment CASCADE;
 
 -- 1. Create Submissions table (For Contact Form)
 CREATE TABLE IF NOT EXISTS submissions (
@@ -18,7 +19,8 @@ CREATE TABLE IF NOT EXISTS services (
     title_en TEXT,
     description_ar TEXT,
     description_en TEXT,
-    icon TEXT -- e.g., "Users", "Shield", "Truck"
+    icon TEXT, -- e.g., "Users", "Shield", "Truck"
+    image_url TEXT
 );
 
 -- 3. Create Portfolio table
@@ -159,16 +161,19 @@ VALUES (1, 'Coverage Across the Kingdom', 'تغطية شاملة لكل المم
 ON CONFLICT (id) DO UPDATE SET
 title_en = EXCLUDED.title_en, title_ar = EXCLUDED.title_ar, regions = EXCLUDED.regions, events = EXCLUDED.events;
 
+-- Ensure services table has image_url column
+ALTER TABLE services ADD COLUMN IF NOT EXISTS image_url TEXT;
+
 -- 4. Services Data
-INSERT INTO services (title_en, title_ar, description_en, description_ar, icon) VALUES
-('Crowd Management', 'إدارة الحشود', 'Organization that creates smoothness and ensures safety.', 'تنظيم يصنع السلاسة ويضمن السلامة.', 'Users'),
-('Security Services', 'الخدمات الأمنية', 'Silent and professional protection in every direction.', 'حماية صامتة ومحترفة في كل اتجاه.', 'Shield'),
-('Logistics & Transport', 'لوجستيات النقل', 'We move with precision to ensure event smoothness.', 'نتحرك بدقة لضمان انسيابية الفعالية.', 'Truck'),
-('Registration Management', 'إدارة التسجيل', 'Organized crowds and secure access.', 'حشود منظمة ووصول آمن.', 'ClipboardList'),
-('Health & Safety', 'الصحة والسلامة', 'Ensuring site security and everyone''s safety.', 'ضمان أمن الموقع وسلامة كل فرد.', 'HeartPulse'),
-('Traffic Control', 'مراقبة المرور', 'Clear paths and easy movement.', 'مسارات واضحة وحركة سهلة.', 'TrafficCone'),
-('Protocol & Reception', 'الاستقبال والبروتوكول', 'An experience managed with perfection and welcomed with respect.', 'تجربة تدار بإتقان ومرحب بها باحترام.', 'Crown'),
-('Field Guidance', 'الإرشاد الميداني', 'First to welcome and last to leave.', 'أول من يستقبل وآخر من يغادر.', 'UserCheck');
+INSERT INTO services (title_en, title_ar, description_en, description_ar, icon, image_url) VALUES
+('Crowd Management', 'إدارة الحشود', 'Organization that creates smoothness and ensures safety.', 'تنظيم يصنع السلاسة ويضمن السلامة.', 'Users', 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=600'),
+('Security Services', 'الخدمات الأمنية', 'Silent and professional protection in every direction.', 'حماية صامتة ومحترفة في كل اتجاه.', 'Shield', 'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=600'),
+('Logistics & Transport', 'لوجستيات النقل', 'We move with precision to ensure event smoothness.', 'نتحرك بدقة لضمان انسيابية الفعالية.', 'Truck', 'https://images.unsplash.com/photo-1501700490688-6161b247f677?auto=format&fit=crop&q=80&w=600'),
+('Registration Management', 'إدارة التسجيل', 'Organized crowds and secure access.', 'حشود منظمة ووصول آمن.', 'ClipboardList', 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=600'),
+('Health & Safety', 'الصحة والسلامة', 'Ensuring site security and everyone''s safety.', 'ضمان أمن الموقع وسلامة كل فرد.', 'HeartPulse', 'https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=600'),
+('Traffic Control', 'مراقبة المرور', 'Clear paths and easy movement.', 'مسارات واضحة وحركة سهلة.', 'TrafficCone', 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?auto=format&fit=crop&q=80&w=600'),
+('Protocol & Reception', 'الاستقبال والبروتوكول', 'An experience managed with perfection and welcomed with respect.', 'تجربة تدار بإتقان ومرحب بها باحترام.', 'Crown', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=600'),
+('Field Guidance', 'الإرشاد الميداني', 'First to welcome and last to leave.', 'أول من يستقبل وآخر من يغادر.', 'UserCheck', 'https://images.unsplash.com/photo-1615840287214-7fe58a8b668f?auto=format&fit=crop&q=80&w=600');
 
 -- 5. Portfolio Data
 INSERT INTO portfolio (name_en, name_ar, category_en, category_ar, description_en, description_ar, image_url, long_description_en, long_description_ar, gallery_urls) VALUES
@@ -231,4 +236,35 @@ INSERT INTO site_settings (key, value, description) VALUES
 ('maps_url', 'https://maps.app.goo.gl/pKF93DTgUKrvA3x38?g_st=ic', 'Google Maps location link'),
 ('twitter_url', 'https://x.com/rsnalarabiya?s=21&t=pOWXrXMoBe0dbSwz_3LJaw', 'X (Twitter) profile link'),
 ('instagram_url', 'https://www.instagram.com/rsnalarabiya?igsh=cW5lZ2h1c2E1ZGl5', 'Instagram profile link'),
-('linkedin_url', 'https://www.linkedin.com/in/rsn-alarabiya-1b600230b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app', 'LinkedIn profile link');
+('linkedin_url', 'https://www.linkedin.com/in/rsn-alarabiya-1b600230b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app', 'LinkedIn profile link')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, description = EXCLUDED.description;
+
+-- ==========================================
+-- 9. Create Equipment & Supplies Table
+-- ==========================================
+
+CREATE TABLE IF NOT EXISTS equipment (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    title_ar TEXT,
+    title_en TEXT,
+    description_ar TEXT,
+    description_en TEXT,
+    image_url TEXT
+);
+
+-- Enable RLS for equipment
+ALTER TABLE equipment ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Enable read for all" ON equipment;
+CREATE POLICY "Enable read for all" ON equipment FOR SELECT USING (true);
+
+-- Insert initial mock data for Equipment
+INSERT INTO equipment (title_en, title_ar, description_en, description_ar, image_url) VALUES
+('VIP Barriers', 'حواجز تشريفات', 'Elegant VIP stanchions with ropes for protocols.', 'حواجز تشريفات أنيقة مع حبال للبروتوكولات.', 'https://images.unsplash.com/photo-1563841930-56645c55731b?auto=format&fit=crop&q=80&w=600'),
+('Mobile Barriers', 'حواجز متحركة', 'Expanding metal barriers for rapid crowd control.', 'حواجز معدنية قابلة للتمدد للتحكم السريع بالحشود.', 'https://images.unsplash.com/photo-1596701062351-df1efb3798ad?auto=format&fit=crop&q=80&w=600'),
+('CCB Barriers', 'حواجز CCB', 'Standard steel crowd control barriers.', 'حواجز معدنية قياسية لإدارة الحشود.', 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&q=80&w=600'),
+('Traffic Cones', 'أقماع', 'High visibility safety cones for traffic management.', 'أقماع سلامة عالية الوضوح لتوجيه وإدارة حركة السير.', 'https://images.unsplash.com/photo-1578313939593-dfd92634d0b2?auto=format&fit=crop&q=80&w=600'),
+('Short-Range Walkie-Talkies', 'أجهزة تواصل لاسلكي قصيرة المدى', 'Short-range two-way radios for team coordination.', 'أجهزة لاسلكي قصيرة المدى لتنسيق واتصالات الفريق الميداني.', 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=600'),
+('Long-Range Walkie-Talkies', 'أجهزة تواصل لاسلكي بعيدة المدى', 'Professional long-range radios for wide event coverage.', 'أجهزة لاسلكي احترافية بعيدة المدى لتغطية الفعاليات الواسعة.', 'https://images.unsplash.com/photo-1533035353720-f1c6a77cd8ae?auto=format&fit=crop&q=80&w=600'),
+('Handheld Metal Detectors', 'مجسات تفتيش', 'Security scanning wands for personnel check.', 'مجسات تفتيش يدوية للفحص الأمني السريع والدقيق للأشخاص.', 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600'),
+('Security Gates', 'بوابات أمنية', 'Walk-through metal detector gates for secure entries.', 'بوابات أمنية كاشفة للمعادن لتأمين المداخل وتدفق الحضور.', 'https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&q=80&w=600'),
+('Light Wands', 'إشارات ضوئية', 'LED traffic wands for night guidance.', 'عصي إرشاد ضوئية ملونة لتوجيه المشاة والمرور ليلاً.', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&q=80&w=600');
